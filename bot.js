@@ -48,6 +48,20 @@ board.on("ready", function () {
         }
     };
 
+    var lights = {
+    	light: new five.Led(6),
+    	on: function(){
+    		lights.light.brightness(255);
+    	}
+    }
+
+    var ldrs = {
+    	right: new five.Sensor({pin:"A0", freq:250}),
+    	left: new five.Sensor({pin:"A1", freq:250}),
+    }
+
+    // lights.on();
+
     var keys = [
 		'up',
 		'down',
@@ -85,11 +99,11 @@ board.on("ready", function () {
 				break;
 			case 'left':
 			case 'a':
-				return wheels.turnLeft;
+				return wheels.pivotLeft;
 				break;
 			case 'right':
 			case 'd':
-				return wheels.turnRight;
+				return wheels.pivotRight;
 				break;
 			case 'space':
 				return wheels.stop;
@@ -100,4 +114,13 @@ board.on("ready", function () {
 	keyPresses.subscribe(function(key){
 		key();
 	});
+
+	// ldrs.left.on('data', function()	{
+	// 	console.log(this.value);
+	// });
+	// var leftSensorReads = rx.Observable.fromEvent(ldrs.left, 'data', 
+	// 	function(args){this.value});
+	// leftSensorReads.subscribe(function(value){
+	// 	console.log(value);
+	// });
 });
